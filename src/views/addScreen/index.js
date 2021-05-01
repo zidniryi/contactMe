@@ -1,5 +1,5 @@
 import React, {useState} from 'react';
-import {View, StyleSheet, Text, ScrollView} from 'react-native';
+import {View, StyleSheet, Text, ScrollView, ToastAndroid} from 'react-native';
 import {
   responsiveFontSize,
   responsiveHeight,
@@ -11,31 +11,59 @@ import Button from '../../components/Button';
 import HeaderApp from '../../components/HeaderApp';
 import TextInputApp from '../../components/TextInputApp';
 import Title from '../../components/Title';
-import {regex, validationForm} from '../../helpers';
+import {regex} from '../../helpers';
 
 export default function AddScreen() {
   const [firstName, setfirstName] = useState('');
   const [lastName, setlastName] = useState('');
   const [age, setage] = useState('');
   const [photo, setphoto] = useState('');
+  const [isDisable, setisDisable] = useState(true);
 
   const postContactAPI = async () => {
     const dataContact = {
-      firstName: 'John',
-      lastName: 'Dooe',
-      age: 11,
-      photo:
-        'https://upload.wikimedia.org/wikipedia/ms/f/f9/Poster_Filem_Avatar_2.jpg',
+      firstName,
+      lastName,
+      age,
+      photo,
     };
     try {
       const res = await postContact(dataContact);
       console.log(res);
       alert('Sukses');
     } catch (err) {
-      console.log(err.response);
-      alert('error');
+      showToastMessage('Server Error!, Try Again Later.');
     }
   };
+
+  const showToastMessage = textToast => {
+    ToastAndroid.showWithGravityAndOffset(
+      textToast,
+      ToastAndroid.LONG,
+      ToastAndroid.BOTTOM,
+      25,
+      50,
+    );
+  };
+
+  const validationButton = () => {
+    if (
+      regex.name.test(firstName) &&
+      firstName &&
+      regex.name.test(lastName) &&
+      lastName &&
+      regex.age.test(age) &&
+      age &&
+      regex.urlPhoto.test(photo) &&
+      photo
+    ) {
+      setisDisable(false);
+    } else {
+      setisDisable(true);
+    }
+  };
+
+  console.log(isDisable);
 
   return (
     <View style={styles.viewContainer}>
@@ -46,17 +74,23 @@ export default function AddScreen() {
           <TextInputApp
             placeholder="First Name"
             value={firstName}
-            onChangeText={value => setfirstName(value)}
+            onChangeText={value => {
+              setfirstName(value);
+              validationButton();
+            }}
           />
           <Text style={styles.textError}>
             {regex.name.test(firstName) || !firstName
               ? ''
-              : 'Input with First Name'}
+              : 'Input with Last Name'}
           </Text>
           <TextInputApp
             placeholder="Last Name"
             value={lastName}
-            onChangeText={value => setlastName(value)}
+            onChangeText={value => {
+              setlastName(value);
+              validationButton();
+            }}
           />
           <Text style={styles.textError}>
             {regex.name.test(lastName) || !lastName
@@ -66,17 +100,21 @@ export default function AddScreen() {
           <TextInputApp
             placeholder="Age"
             value={age}
-            onChangeText={value => setage(value)}
+            onChangeText={value => {
+              setage(value);
+              validationButton();
+            }}
           />
           <Text style={styles.textError}>
-            {regex.name.test(lastName) || !lastName
-              ? ''
-              : 'Input with Age Number'}
+            {regex.age.test(age) || !age ? '' : 'Input with Age Number'}
           </Text>
           <TextInputApp
             placeholder="URL"
             value={photo}
-            onChangeText={value => setphoto(value)}
+            onChangeText={value => {
+              setphoto(value);
+              validationButton();
+            }}
           />
 
           <Text style={styles.textError}>
@@ -88,7 +126,14 @@ export default function AddScreen() {
           <Button
             textButton="SAVE"
             onPress={postContactAPI}
-            isDisable={validationForm()}
+            isDisable={
+              regex.name.test(firstName) &&
+              regex.name.test(lastName) &&
+              regex.age.test(age) &&
+              regex.urlPhoto.test(photo)
+                ? false
+                : true
+            }
           />
         </View>
       </ScrollView>
