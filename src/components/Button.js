@@ -6,11 +6,17 @@ import {
   responsiveWidth,
 } from 'react-native-responsive-dimensions';
 
-const Button = ({onPress, textButton}) => {
+const Button = ({onPress, textButton, isDisable}) => {
   return (
-    <TouchableOpacity onPress={onPress}>
-      <View style={styles.viewButton}>
-        <Text style={styles.textButton}>{textButton}</Text>
+    <TouchableOpacity onPress={onPress} disabled={isDisable}>
+      <View
+        style={[
+          styles.viewButton,
+          {backgroundColor: isDisable ? '#DDDDDD' : '#3CA6E2'},
+        ]}>
+        <Text style={[styles.textButton, {color: isDisable ? '#555' : '#FFF'}]}>
+          {textButton}
+        </Text>
       </View>
     </TouchableOpacity>
   );
@@ -28,7 +34,6 @@ const styles = StyleSheet.create({
     height: responsiveHeight(8),
     alignItems: 'center',
     alignSelf: 'center',
-    backgroundColor: '#3CA6E2',
     borderRadius: 10,
     justifyContent: 'center',
     shadowOpacity: 0.25,

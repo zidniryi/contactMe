@@ -39,7 +39,6 @@ export default function ContactScreen() {
       <FlatList
         data={contactData}
         renderItem={({item}) => {
-          console.log(item.photo);
           return (
             <CardContact
               avatar={{

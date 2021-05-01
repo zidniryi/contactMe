@@ -19,10 +19,10 @@ export const getContact = async () => {
  * @param {*fullName *lastName *age, *age} param0
  * @returns Promise
  */
-export const postContact = async ({fullName, lastName, age, photo}) => {
-  return base
+export const postContact = async ({firstName, lastName, age, photo}) => {
+  return baseApi
     .post('contact', {
-      fullName,
+      firstName,
       lastName,
       age,
       photo,
