@@ -1,13 +1,10 @@
 import React from 'react';
-import {View, StyleSheet, Text, TouchableOpacity} from 'react-native';
-import {
-  responsiveFontSize,
-  responsiveHeight,
-  responsiveWidth,
-} from 'react-native-responsive-dimensions';
+import {View, StyleSheet} from 'react-native';
+
 import Button from '../../components/Button';
 import HeaderApp from '../../components/HeaderApp';
 import TextInputApp from '../../components/TextInputApp';
+import Title from '../../components/Title';
 
 export default function AddScreen() {
   return (
@@ -16,10 +13,7 @@ export default function AddScreen() {
         title={'ADD CONTACT'}
         onAdd={() => navigation.navigate('AddContact')}
       />
-
-      <View>
-        <Text style={styles.textTitle}>Add New Contact</Text>
-      </View>
+      <Title title="Add New Contact" />
       <View>
         <TextInputApp placeholder="First Name" />
         <TextInputApp placeholder="Last Name" />
@@ -38,12 +32,5 @@ const styles = StyleSheet.create({
   viewContainer: {
     flex: 1,
     backgroundColor: '#FFFFFF',
-  },
-  textTitle: {
-    fontSize: responsiveFontSize(2.2),
-    fontWeight: 'bold',
-    color: '#555',
-    marginLeft: responsiveWidth(5.33),
-    marginTop: responsiveHeight(2.33),
   },
 });
