@@ -1,6 +1,7 @@
 import React, {useEffect, useState} from 'react';
 import {useNavigation} from '@react-navigation/native';
 import {View, StyleSheet, FlatList} from 'react-native';
+import {useDispatch} from 'react-redux';
 
 import {CardContact} from '../../components/CardContact';
 import {deleteContact, getContact} from '../../api/contact';
@@ -14,7 +15,7 @@ export default function ContactScreen() {
   const [isLoading, setisLoading] = useState(true);
   const [isPopUp, setisPopUp] = useState(false);
   const [id, setid] = useState('');
-
+  const dispatch = useDispatch();
   /**
    * Get API Handler
    */
