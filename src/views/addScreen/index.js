@@ -1,16 +1,11 @@
 import React from 'react';
-import {
-  View,
-  StyleSheet,
-  TextInput,
-  Text,
-  TouchableOpacity,
-} from 'react-native';
+import {View, StyleSheet, Text, TouchableOpacity} from 'react-native';
 import {
   responsiveFontSize,
   responsiveHeight,
   responsiveWidth,
 } from 'react-native-responsive-dimensions';
+import Button from '../../components/Button';
 import HeaderApp from '../../components/HeaderApp';
 import TextInputApp from '../../components/TextInputApp';
 
@@ -23,7 +18,7 @@ export default function AddScreen() {
       />
 
       <View>
-        <Text>Add New Contact</Text>
+        <Text style={styles.textTitle}>Add New Contact</Text>
       </View>
       <View>
         <TextInputApp placeholder="First Name" />
@@ -33,11 +28,7 @@ export default function AddScreen() {
       </View>
 
       <View>
-        <TouchableOpacity>
-          <View style={styles.viewButton}>
-            <Text style={styles.textButton}>SAVE</Text>
-          </View>
-        </TouchableOpacity>
+        <Button textButton="SAVE" />
       </View>
     </View>
   );
@@ -48,20 +39,11 @@ const styles = StyleSheet.create({
     flex: 1,
     backgroundColor: '#FFFFFF',
   },
-
-  viewButton: {
-    width: responsiveWidth(90),
-    marginVertical: responsiveHeight(1.3),
-    height: responsiveHeight(8),
-    alignItems: 'center',
-    alignSelf: 'center',
-    backgroundColor: '#3CA6E2',
-    borderRadius: 10,
-    justifyContent: 'center',
-  },
-  textButton: {
+  textTitle: {
     fontSize: responsiveFontSize(2.2),
-    color: '#FFF',
     fontWeight: 'bold',
+    color: '#555',
+    marginLeft: responsiveWidth(5.33),
+    marginTop: responsiveHeight(2.33),
   },
 });
