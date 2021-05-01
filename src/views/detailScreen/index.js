@@ -6,6 +6,7 @@ import {
   Text,
   TouchableOpacity,
   ToastAndroid,
+  Share,
 } from 'react-native';
 import {
   responsiveFontSize,
@@ -71,6 +72,26 @@ export default function DetailScreen({route}) {
     getContactDetailAPI(id);
   }, []);
 
+  // Share action
+  const onShare = async () => {
+    try {
+      const result = await Share.share({
+        message: `Fullname : ${
+          contactData.firstName + ' ' + contactData.lastName
+        }`,
+      });
+      if (result.action === Share.sharedAction) {
+        if (result.activityType) {
+          // shared with activity type of result.activityType
+        }
+      } else if (result.action === Share.dismissedAction) {
+        alert('Batal');
+      }
+    } catch (error) {
+      alert(error.message);
+    }
+  };
+
   if (isLoading) return <LoaderApp />;
   return (
     <View style={styles.viewContainer}>
@@ -98,9 +119,7 @@ export default function DetailScreen({route}) {
           </View>
         </TouchableOpacity>
 
-        <TouchableOpacity
-          activeOpacity={0.5}
-          onPress={() => deleteContactDetailAPI(id)}>
+        <TouchableOpacity activeOpacity={0.5} onPress={onShare}>
           <View
             style={[
               styles.buttonCircle,
