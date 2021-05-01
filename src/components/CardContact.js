@@ -27,7 +27,7 @@ export const CardContact = ({avatar, name, onPress, onDelete, onUpdate}) => {
               <Icon name="edit" size={25} color="#FFF" />
             </View>
           </TouchableOpacity>
-          <TouchableOpacity activeOpacity={0.5} onClick={onDelete}>
+          <TouchableOpacity activeOpacity={0.5} onPress={onDelete}>
             <View
               style={[
                 styles.buttonCircle,

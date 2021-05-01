@@ -46,25 +46,6 @@ export default function AddScreen() {
     );
   };
 
-  const validationButton = () => {
-    if (
-      regex.name.test(firstName) &&
-      firstName &&
-      regex.name.test(lastName) &&
-      lastName &&
-      regex.age.test(age) &&
-      age &&
-      regex.urlPhoto.test(photo) &&
-      photo
-    ) {
-      setisDisable(false);
-    } else {
-      setisDisable(true);
-    }
-  };
-
-  console.log(isDisable);
-
   return (
     <View style={styles.viewContainer}>
       <HeaderApp title={'ADD CONTACT'} isBack />
@@ -76,7 +57,6 @@ export default function AddScreen() {
             value={firstName}
             onChangeText={value => {
               setfirstName(value);
-              validationButton();
             }}
           />
           <Text style={styles.textError}>
@@ -89,7 +69,6 @@ export default function AddScreen() {
             value={lastName}
             onChangeText={value => {
               setlastName(value);
-              validationButton();
             }}
           />
           <Text style={styles.textError}>
@@ -102,7 +81,6 @@ export default function AddScreen() {
             value={age}
             onChangeText={value => {
               setage(value);
-              validationButton();
             }}
           />
           <Text style={styles.textError}>
@@ -113,7 +91,6 @@ export default function AddScreen() {
             value={photo}
             onChangeText={value => {
               setphoto(value);
-              validationButton();
             }}
           />
 

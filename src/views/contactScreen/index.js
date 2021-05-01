@@ -3,14 +3,17 @@ import {useNavigation} from '@react-navigation/native';
 import {View, StyleSheet, FlatList} from 'react-native';
 
 import {CardContact} from '../../components/CardContact';
-import {getContact} from '../../api/contact';
+import {deleteContact, getContact} from '../../api/contact';
 import LoaderApp from '../../components/LoaderApp';
 import HeaderApp from '../../components/HeaderApp';
+import ModalConfirm from '../../components/ModalConfirm';
 
 export default function ContactScreen() {
   const navigation = useNavigation();
   const [contactData, setcontactData] = useState({});
   const [isLoading, setisLoading] = useState(true);
+  const [isPopUp, setisPopUp] = useState(false);
+  const [id, setid] = useState('');
 
   /**
    * Get API Handler
@@ -20,6 +23,19 @@ export default function ContactScreen() {
       const response = await getContact();
       setcontactData(response.data);
       setisLoading(false);
+    } catch (err) {
+      setisLoading(false);
+    }
+  };
+
+  /**
+   * Delete API Handler
+   */
+  const deleteContactAPI = async id => {
+    try {
+      await deleteContact(id);
+      setisPopUp(false);
+      getContactAPI();
     } catch (err) {
       setisLoading(false);
     }
@@ -36,6 +52,12 @@ export default function ContactScreen() {
         onAdd={() => navigation.navigate('AddContact')}
         isAdd
       />
+      <ModalConfirm
+        isVisible={isPopUp}
+        onCancel={() => setisPopUp(false)}
+        onDelete={() => deleteContactAPI(id)}
+      />
+
       <FlatList
         data={contactData}
         renderItem={({item}) => {
@@ -50,6 +72,10 @@ export default function ContactScreen() {
               name={`${item.firstName} ${item.lastName}`}
               onPress={() => navigation.navigate('DetailContact')}
               onUpdate={() => navigation.navigate('EditContact')}
+              onDelete={() => {
+                setid(item.id);
+                setisPopUp(true);
+              }}
             />
           );
         }}
