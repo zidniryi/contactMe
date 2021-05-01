@@ -4,6 +4,7 @@ import {createStackNavigator} from '@react-navigation/stack';
 import ContactScreen from '../views/contactScreen';
 import DetailScreen from '../views/detailScreen';
 import AddScreen from '../views/addScreen';
+import EditScreen from '../views/editScreen';
 
 const Stack = createStackNavigator();
 
@@ -28,6 +29,14 @@ function Router() {
         <Stack.Screen
           name="AddContact"
           component={AddScreen}
+          options={{
+            headerShown: false,
+          }}
+        />
+
+        <Stack.Screen
+          name="EditContact"
+          component={EditScreen}
           options={{
             headerShown: false,
           }}

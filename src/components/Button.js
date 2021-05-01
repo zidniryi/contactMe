@@ -31,6 +31,13 @@ const styles = StyleSheet.create({
     backgroundColor: '#3CA6E2',
     borderRadius: 10,
     justifyContent: 'center',
+    shadowOpacity: 0.25,
+    shadowRadius: 3.84,
+
+    elevation: 5,
+    borderBottomEndRadius: 20,
+    borderBottomRightRadius: 20,
+    borderBottomStartRadius: 20,
   },
   textButton: {
     fontSize: responsiveFontSize(2.2),

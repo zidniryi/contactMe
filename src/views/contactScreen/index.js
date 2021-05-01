@@ -34,6 +34,7 @@ export default function ContactScreen() {
       <HeaderApp
         title={'CONTACT ME'}
         onAdd={() => navigation.navigate('AddContact')}
+        isAdd
       />
       <FlatList
         data={contactData}
@@ -48,7 +49,8 @@ export default function ContactScreen() {
                     : item.photo,
               }}
               name={`${item.firstName} ${item.lastName}`}
-              onClick={() => navigation.navigate('DetailContact')}
+              onPress={() => navigation.navigate('DetailContact')}
+              onUpdate={() => navigation.navigate('EditContact')}
             />
           );
         }}

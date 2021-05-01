@@ -1,3 +1,4 @@
+import {useNavigation} from '@react-navigation/native';
 import React from 'react';
 import {View, StyleSheet, Text, TouchableOpacity} from 'react-native';
 import {
@@ -7,20 +8,27 @@ import {
 } from 'react-native-responsive-dimensions';
 import Icon from 'react-native-vector-icons/dist/Feather';
 
-// import { Container } from './styles';
-
-const HeaderApp = ({onAdd, onBack, title}) => {
+const HeaderApp = ({onAdd, onBack, title, isBack, isAdd}) => {
+  const navigation = useNavigation();
   return (
     <View style={styles.viewHeader}>
-      <TouchableOpacity onPress={onBack}>
-        <Icon name="arrow-left" size={30} color="#FFF" />
-      </TouchableOpacity>
+      {isBack ? (
+        <TouchableOpacity onPress={() => navigation.goBack()}>
+          <Icon name="arrow-left" size={30} color="#FFF" />
+        </TouchableOpacity>
+      ) : (
+        <View />
+      )}
       <View>
         <Text style={styles.textContact}> {title} </Text>
       </View>
-      <TouchableOpacity onPress={onAdd}>
-        <Icon name="plus-circle" size={30} color="#FFF" />
-      </TouchableOpacity>
+      {isAdd ? (
+        <TouchableOpacity onPress={onAdd}>
+          <Icon name="plus-circle" size={30} color="#FFF" />
+        </TouchableOpacity>
+      ) : (
+        <View />
+      )}
     </View>
   );
 };

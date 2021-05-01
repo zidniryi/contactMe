@@ -7,36 +7,38 @@ import {
 } from 'react-native-responsive-dimensions';
 import Icon from 'react-native-vector-icons/dist/Feather';
 
-export const CardContact = ({avatar, name, onClick, onDelete, onUpdate}) => {
+export const CardContact = ({avatar, name, onPress, onDelete, onUpdate}) => {
   return (
-    <View style={styles.viewCard}>
-      <TouchableOpacity onPress={onClick}>
-        <View>
-          <Image source={avatar} style={styles.imageAvatar} />
-        </View>
-      </TouchableOpacity>
-      <TouchableOpacity onPress={onClick}>
-        <View>
-          <Text style={styles.textName}>{name}</Text>
-        </View>
-      </TouchableOpacity>
-      <View style={styles.viewFlex}>
-        <TouchableOpacity activeOpacity={0.5} onClick={onUpdate}>
-          <View style={[styles.buttonCircle, {backgroundColor: '#2ecc71'}]}>
-            <Icon name="edit" size={25} color="#FFF" />
+    <TouchableOpacity onPress={onPress}>
+      <View style={styles.viewCard}>
+        <TouchableOpacity onPress={onPress}>
+          <View>
+            <Image source={avatar} style={styles.imageAvatar} />
           </View>
         </TouchableOpacity>
-        <TouchableOpacity activeOpacity={0.5} onClick={onDelete}>
-          <View
-            style={[
-              styles.buttonCircle,
-              {backgroundColor: '#c0392b', marginRight: responsiveWidth(3.3)},
-            ]}>
-            <Icon name="trash" size={25} color="#FFF" />
+        <TouchableOpacity onPress={onPress}>
+          <View>
+            <Text style={styles.textName}>{name}</Text>
           </View>
         </TouchableOpacity>
+        <View style={styles.viewFlex}>
+          <TouchableOpacity activeOpacity={0.5} onPress={onUpdate}>
+            <View style={[styles.buttonCircle, {backgroundColor: '#2ecc71'}]}>
+              <Icon name="edit" size={25} color="#FFF" />
+            </View>
+          </TouchableOpacity>
+          <TouchableOpacity activeOpacity={0.5} onClick={onDelete}>
+            <View
+              style={[
+                styles.buttonCircle,
+                {backgroundColor: '#c0392b', marginRight: responsiveWidth(3.3)},
+              ]}>
+              <Icon name="trash" size={25} color="#FFF" />
+            </View>
+          </TouchableOpacity>
+        </View>
       </View>
-    </View>
+    </TouchableOpacity>
   );
 };
 

@@ -9,10 +9,7 @@ import Title from '../../components/Title';
 export default function AddScreen() {
   return (
     <View style={styles.viewContainer}>
-      <HeaderApp
-        title={'ADD CONTACT'}
-        onAdd={() => navigation.navigate('AddContact')}
-      />
+      <HeaderApp title={'ADD CONTACT'} isBack />
       <Title title="Add New Contact" />
       <View>
         <TextInputApp placeholder="First Name" />
