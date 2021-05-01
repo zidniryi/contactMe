@@ -35,7 +35,6 @@ export default function AddScreen() {
       navigation.navigate('Contact');
     } catch (err) {
       setisDisable(false);
-      console.log(err, 'Edit');
       showToastMessage(
         err.response.data.message
           ? err.response.data.message
