@@ -40,6 +40,27 @@ export const postContact = async ({firstName, lastName, age, photo}) => {
  * @param {*fullName *lastName *age, *age} param0
  * @returns Promise
  */
+export const putContact = async ({firstName, lastName, age, photo}) => {
+  return baseApi
+    .put('contact', {
+      firstName,
+      lastName,
+      age,
+      photo,
+    })
+    .then(response => {
+      return Promise.resolve(response.data);
+    })
+    .catch(error => {
+      return Promise.reject(error);
+    });
+};
+
+/**
+ * Post contact api
+ * @param {*fullName *lastName *age, *age} param0
+ * @returns Promise
+ */
 export const deleteContact = async id => {
   return baseApi
     .delete(`contact/${id}`, {})
