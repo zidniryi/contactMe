@@ -5,6 +5,7 @@ import {
   responsiveHeight,
   responsiveWidth,
 } from 'react-native-responsive-dimensions';
+import {useSelector} from 'react-redux';
 
 import Button from '../../components/Button';
 import HeaderApp from '../../components/HeaderApp';
@@ -12,12 +13,15 @@ import TextInputApp from '../../components/TextInputApp';
 import Title from '../../components/Title';
 import {regex} from '../../helpers';
 import {putContact} from '../../api/contact';
+import {useNavigation} from '@react-navigation/native';
 
 export default function EditScreen() {
-  const [firstName, setfirstName] = useState('');
-  const [lastName, setlastName] = useState('');
-  const [age, setage] = useState('');
-  const [photo, setphoto] = useState('');
+  const editReducer = useSelector(state => state.editReducer);
+  const [firstName, setfirstName] = useState(editReducer.firstName);
+  const [lastName, setlastName] = useState(editReducer.lastName);
+  const [age, setage] = useState(editReducer.age);
+  const [photo, setphoto] = useState(editReducer.photo);
+  const navigation = useNavigation();
 
   const putContactAPI = async () => {
     const dataContact = {
@@ -27,11 +31,14 @@ export default function EditScreen() {
       photo,
     };
     try {
-      const res = await putContact(dataContact);
-      console.log(res);
-      alert('Sukses');
+      await putContact(dataContact);
+      navigation.navigate('Contact');
     } catch (err) {
-      showToastMessage('Server Error!, Try Again Later.');
+      showToastMessage(
+        err.response.data.message
+          ? err.response.data.message
+          : 'Something Went Wrong Try Again!',
+      );
     }
   };
 
@@ -77,7 +84,7 @@ export default function EditScreen() {
           </Text>
           <TextInputApp
             placeholder="Age"
-            value={age}
+            value={age.toString()}
             onChangeText={value => {
               setage(value);
             }}

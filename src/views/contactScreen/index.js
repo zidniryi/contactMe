@@ -1,6 +1,6 @@
 import React, {useEffect, useState} from 'react';
 import {useNavigation} from '@react-navigation/native';
-import {View, StyleSheet, FlatList} from 'react-native';
+import {View, StyleSheet, FlatList, ToastAndroid} from 'react-native';
 import {useDispatch} from 'react-redux';
 
 import {CardContact} from '../../components/CardContact';
@@ -8,6 +8,7 @@ import {deleteContact, getContact} from '../../api/contact';
 import LoaderApp from '../../components/LoaderApp';
 import HeaderApp from '../../components/HeaderApp';
 import ModalConfirm from '../../components/ModalConfirm';
+import {editContactAction} from '../../redux/actions/editContactAction';
 
 export default function ContactScreen() {
   const navigation = useNavigation();
@@ -28,6 +29,16 @@ export default function ContactScreen() {
       setisLoading(false);
     }
   };
+  // Toast Message
+  const showToastMessage = textToast => {
+    ToastAndroid.showWithGravityAndOffset(
+      textToast,
+      ToastAndroid.LONG,
+      ToastAndroid.BOTTOM,
+      25,
+      50,
+    );
+  };
 
   /**
    * Delete API Handler
@@ -38,13 +49,21 @@ export default function ContactScreen() {
       setisPopUp(false);
       getContactAPI();
     } catch (err) {
-      setisLoading(false);
+      showToastMessage(
+        err.response.data.message
+          ? err.response.data.message
+          : 'Something Went Wrong Try Again!',
+      );
     }
   };
 
   useEffect(() => {
     getContactAPI();
-  }, []);
+    const unsubscribe = navigation.addListener('focus', () => {
+      getContactAPI();
+    });
+    return unsubscribe;
+  }, [navigation]);
   if (isLoading) return <LoaderApp />;
   return (
     <View style={styles.viewContainer}>
@@ -71,8 +90,13 @@ export default function ContactScreen() {
                     : item.photo,
               }}
               name={`${item.firstName} ${item.lastName}`}
-              onPress={() => navigation.navigate('DetailContact')}
-              onUpdate={() => navigation.navigate('EditContact')}
+              onPress={() =>
+                navigation.navigate('DetailContact', {id: item.id})
+              }
+              onUpdate={() => {
+                dispatch(editContactAction(item));
+                navigation.navigate('EditContact');
+              }}
               onDelete={() => {
                 setid(item.id);
                 setisPopUp(true);

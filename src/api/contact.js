@@ -15,6 +15,21 @@ export const getContact = async () => {
 };
 
 /**
+ * Get contact api
+ * @returns response
+ * @param id
+ *
+ */
+export const getContactId = async id => {
+  try {
+    const response = await baseApi.get(`contact/${id}`);
+    return Promise.resolve(response.data);
+  } catch (error) {
+    return Promise.reject(error.response);
+  }
+};
+
+/**
  * Post contact api
  * @param {*fullName *lastName *age, *age} param0
  * @returns Promise

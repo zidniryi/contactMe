@@ -5,13 +5,14 @@ import {
   responsiveHeight,
   responsiveWidth,
 } from 'react-native-responsive-dimensions';
-import {postContact} from '../../api/contact';
+import {useNavigation} from '@react-navigation/native';
 
 import Button from '../../components/Button';
 import HeaderApp from '../../components/HeaderApp';
 import TextInputApp from '../../components/TextInputApp';
 import Title from '../../components/Title';
 import {regex} from '../../helpers';
+import {postContact} from '../../api/contact';
 
 export default function AddScreen() {
   const [firstName, setfirstName] = useState('');
@@ -19,6 +20,7 @@ export default function AddScreen() {
   const [age, setage] = useState('');
   const [photo, setphoto] = useState('');
   const [isDisable, setisDisable] = useState(true);
+  const navigation = useNavigation();
 
   const postContactAPI = async () => {
     const dataContact = {
@@ -28,11 +30,17 @@ export default function AddScreen() {
       photo,
     };
     try {
-      const res = await postContact(dataContact);
-      console.log(res);
-      alert('Sukses');
+      await postContact(dataContact);
+      setisDisable(true);
+      navigation.navigate('Contact');
     } catch (err) {
-      showToastMessage('Server Error!, Try Again Later.');
+      setisDisable(false);
+      console.log(err, 'Edit');
+      showToastMessage(
+        err.response.data.message
+          ? err.response.data.message
+          : 'Something Went Wrong Try Again!',
+      );
     }
   };
 
@@ -104,10 +112,11 @@ export default function AddScreen() {
             textButton="SAVE"
             onPress={postContactAPI}
             isDisable={
-              regex.name.test(firstName) &&
-              regex.name.test(lastName) &&
-              regex.age.test(age) &&
-              regex.urlPhoto.test(photo)
+              (regex.name.test(firstName) &&
+                regex.name.test(lastName) &&
+                regex.age.test(age) &&
+                regex.urlPhoto.test(photo)) ||
+              !isDisable
                 ? false
                 : true
             }
