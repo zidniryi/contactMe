@@ -36,7 +36,7 @@ An App Contact API Android
 
 ## Demo App
 
-For demo app click link here to download
+For demo app click link here:
 [Download Here](https://drive.google.com/file/d/1Oer8Lm0k9rqaGm7HqR2DKYXqxnz_z0T7/view?usp=sharing)
 
 
