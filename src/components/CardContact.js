@@ -1,25 +1,39 @@
 import React from 'react';
-import {View, StyleSheet} from 'react-native';
+import {View, Text, StyleSheet, Image, TouchableOpacity} from 'react-native';
 import {
   responsiveFontSize,
   responsiveHeight,
   responsiveWidth,
 } from 'react-native-responsive-dimensions';
-import {CardContact} from './components/CardContact';
 
-export default function App() {
+export const CardContact = ({avatar, name, onClick, onDelete, onUpdate}) => {
   return (
-    <View style={styles.viewContainer}>
-      <CardContact
-        avatar={{
-          uri:
-            'https://wiradutaintersains.co.id/wp-content/uploads/2019/06/man-2_icon-icons.com_55041.png',
-        }}
-        name={'John Doe Liban'}
-      />
+    <View style={styles.viewCard}>
+      <TouchableOpacity>
+        <View>
+          <Image source={avatar} style={styles.imageAvatar} />
+        </View>
+      </TouchableOpacity>
+      <TouchableOpacity>
+        <View>
+          <Text style={styles.textName}>{name}</Text>
+        </View>
+      </TouchableOpacity>
+      <View style={styles.viewFlex}>
+        <TouchableOpacity activeOpacity={0.5} onClick={onUpdate}>
+          <View style={styles.buttonCircle}>
+            <Text>X</Text>
+          </View>
+        </TouchableOpacity>
+        <TouchableOpacity activeOpacity={0.5} onClick={onDelete}>
+          <View style={styles.buttonCircle}>
+            <Text>X</Text>
+          </View>
+        </TouchableOpacity>
+      </View>
     </View>
   );
-}
+};
 
 const styles = StyleSheet.create({
   viewContainer: {
