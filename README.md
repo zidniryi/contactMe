@@ -17,14 +17,28 @@ An App Contact API Android
 - Hooks
 - Netinfo for check internet
 - Pull To Refresh
+- Test (enzyme, jest, enzyme-adapter-react-16, react-test-renderer)
 
 ## Screenshoot
 
-![0](https://raw.githubusercontent.com/zidniryi/contactMe/main/images/1.png)
-![1](https://raw.githubusercontent.com/zidniryi/contactMe/main/images/2.png)
-![2](https://raw.githubusercontent.com/zidniryi/contactMe/main/images/3.png)
-![3](https://raw.githubusercontent.com/zidniryi/contactMe/main/images/4.png)
-![4](https://raw.githubusercontent.com/zidniryi/contactMe/main/images/5.png)
+![1](https://raw.githubusercontent.com/zidniryi/contactMe/main/images/1.png)
+![2](https://raw.githubusercontent.com/zidniryi/contactMe/main/images/2.png)
+![3](https://raw.githubusercontent.com/zidniryi/contactMe/main/images/3.png)
+![4](https://raw.githubusercontent.com/zidniryi/contactMe/main/images/4.png)
+![5](https://raw.githubusercontent.com/zidniryi/contactMe/main/images/5.png)
+
+
+## Test
+
+- **npm run test**
+
+![6](https://raw.githubusercontent.com/zidniryi/contactMe/main/images/6.png)
+
+## Demo App
+
+For demo app click link here to download
+
+
 
 
 
