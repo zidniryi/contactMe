@@ -5,29 +5,34 @@ import {
   responsiveHeight,
   responsiveWidth,
 } from 'react-native-responsive-dimensions';
+import Icon from 'react-native-vector-icons/dist/Feather';
 
 export const CardContact = ({avatar, name, onClick, onDelete, onUpdate}) => {
   return (
     <View style={styles.viewCard}>
-      <TouchableOpacity>
+      <TouchableOpacity onPress={onClick}>
         <View>
           <Image source={avatar} style={styles.imageAvatar} />
         </View>
       </TouchableOpacity>
-      <TouchableOpacity>
+      <TouchableOpacity onPress={onClick}>
         <View>
           <Text style={styles.textName}>{name}</Text>
         </View>
       </TouchableOpacity>
       <View style={styles.viewFlex}>
         <TouchableOpacity activeOpacity={0.5} onClick={onUpdate}>
-          <View style={styles.buttonCircle}>
-            <Text>X</Text>
+          <View style={[styles.buttonCircle, {backgroundColor: '#2ecc71'}]}>
+            <Icon name="edit" size={25} color="#FFF" />
           </View>
         </TouchableOpacity>
         <TouchableOpacity activeOpacity={0.5} onClick={onDelete}>
-          <View style={styles.buttonCircle}>
-            <Text>X</Text>
+          <View
+            style={[
+              styles.buttonCircle,
+              {backgroundColor: '#c0392b', marginRight: responsiveWidth(3.3)},
+            ]}>
+            <Icon name="trash" size={25} color="#FFF" />
           </View>
         </TouchableOpacity>
       </View>
@@ -53,6 +58,7 @@ const styles = StyleSheet.create({
     width: 60,
     height: 60,
     marginLeft: responsiveWidth(5.33),
+    borderRadius: 30,
   },
   textName: {
     fontSize: responsiveFontSize(2.2),
@@ -61,8 +67,8 @@ const styles = StyleSheet.create({
     marginLeft: responsiveWidth(-11.33),
   },
   buttonCircle: {
-    width: 50,
-    height: 50,
+    width: 40,
+    height: 40,
     backgroundColor: 'red',
     borderRadius: 25,
     alignItems: 'center',
