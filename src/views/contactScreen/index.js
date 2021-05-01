@@ -4,6 +4,8 @@ import {View, StyleSheet, FlatList} from 'react-native';
 
 import {CardContact} from '../../components/CardContact';
 import {getContact} from '../../api/contact';
+import LoaderApp from '../../components/LoaderApp';
+import HeaderApp from '../../components/HeaderApp';
 
 export default function ContactScreen() {
   const navigation = useNavigation();
@@ -19,7 +21,6 @@ export default function ContactScreen() {
       setcontactData(response.data);
       setisLoading(false);
     } catch (err) {
-      console.log(err);
       setisLoading(false);
     }
   };
@@ -27,8 +28,13 @@ export default function ContactScreen() {
   useEffect(() => {
     getContactAPI();
   }, []);
+  if (isLoading) return <LoaderApp />;
   return (
     <View style={styles.viewContainer}>
+      <HeaderApp
+        title={'CONTACT ME'}
+        onAdd={() => navigation.navigate('AddContact')}
+      />
       <FlatList
         data={contactData}
         renderItem={({item}) => {
@@ -42,7 +48,7 @@ export default function ContactScreen() {
                     : item.photo,
               }}
               name={`${item.firstName} ${item.lastName}`}
-              onClick={() => navigation.navigate('Detail')}
+              onClick={() => navigation.navigate('DetailContact')}
             />
           );
         }}
