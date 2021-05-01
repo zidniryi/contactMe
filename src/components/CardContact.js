@@ -9,18 +9,16 @@ import Icon from 'react-native-vector-icons/dist/Feather';
 
 export const CardContact = ({avatar, name, onPress, onDelete, onUpdate}) => {
   return (
-    <TouchableOpacity onPress={onPress}>
+    <TouchableOpacity onPress={onPress} activeOpacity={0.9}>
       <View style={styles.viewCard}>
         <TouchableOpacity onPress={onPress}>
           <View>
             <Image source={avatar} style={styles.imageAvatar} />
           </View>
         </TouchableOpacity>
-        <TouchableOpacity onPress={onPress}>
           <View>
             <Text style={styles.textName}>{name}</Text>
           </View>
-        </TouchableOpacity>
         <View style={styles.viewFlex}>
           <TouchableOpacity activeOpacity={0.5} onPress={onUpdate}>
             <View style={[styles.buttonCircle, {backgroundColor: '#2ecc71'}]}>

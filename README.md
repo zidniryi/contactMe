@@ -15,6 +15,8 @@ An App Contact API Android
 - React Native
 - Axios
 - Hooks
+- Netinfo for check internet
+- Pull To Refresh
 
 ## Screenshoot
 
